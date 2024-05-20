@@ -1,0 +1,27 @@
+name: Docker Image CI Front-End
+
+on:
+  push:
+    paths:
+      - frontend/**
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: |
+        cd frontend
+        docker build . --file Dockerfile --tag sgutierrez11/frontend:${{ github.run_number }}
+    - name: Log In to Dockerhub
+      uses: docker/login-action@v3
+      with: 
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    - name: Push images to Dockerhub
+      run: |
+        docker push sgutierrez11/frontend:${{ github.run_number }}
