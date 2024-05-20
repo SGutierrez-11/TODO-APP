@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "users-api.fullname" . }}
+  namespace: distribuidos
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "users-api.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "users-api.name" . }}
+    spec:
+      containers:
+        - name: users-api-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          env:
+            - name: JWT_SECRET
+              value: "{{ .Values.env.JWT_SECRET }}"
+            - name: SERVER_PORT
+              value: "{{ .Values.env.SERVER_PORT }}"

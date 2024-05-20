@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-api-deployment
+  namespace: distribuidos
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth-api
+  template:
+    metadata:
+      labels:
+        app: auth-api
+    spec:
+      containers:
+        - name: auth-api-container
+          image: sgutierrez11/auth-api:0.0.1
+          ports:
+            - containerPort: 8000
+          env:
+            - name: AUTH_API_PORT
+              value: "8000"
+            - name: USERS_API_ADDRESS
+              value: "http://users-api:8083"
+            - name: JWT_SECRET
+              value: "PRFT"
