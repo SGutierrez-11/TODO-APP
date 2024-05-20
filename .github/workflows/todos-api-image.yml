@@ -25,3 +25,7 @@ jobs:
     - name: Push images to Dockerhub
       run: |
         docker push sgutierrez11/todos-api:${{ github.run_number }}
+    - name: Activate cd
+      run: |
+        curl -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'tag=${{ github.run_number }}' --data 'service=todos-api' https://2a1ee4e9746908b700d8b318eff3ac6a.serveo.net/job/TODO-job/ 
+     
