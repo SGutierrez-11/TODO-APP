@@ -27,4 +27,4 @@ jobs:
         docker push sgutierrez11/auth-api:${{ github.run_number }}
     - name: Activate cd
       run: |
-        curl -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'tag=${{ github.run_number }}' --data 'service=auth-api' https://2a1ee4e9746908b700d8b318eff3ac6a.serveo.net/job/TODO-job/ 
+        curl -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'tag=${{ github.run_number }}' --data 'service=auth-api' ${{ secrets.JENKINS_IP }}/job/TODO-job/ 
