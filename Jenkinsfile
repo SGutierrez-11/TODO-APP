@@ -28,16 +28,11 @@ pipeline {
             }
         }
 
-        stage("Push the changed deployment file to Git") {
+        stage("Update deployment in cluster") {
             steps {
-                sh """
-                    git config --global user.name "estebanm1812"
-                    git config --global user.email "Estebanmendoza02@hotmail.com"
-                    git add .
-                    git commit -m "Updated Deployment of ${service} Manifest Automation with tag: ${tag}"
-                """
-                withCredentials([gitUsernamePassword(credentialsId: 'Jenkins-EstebanMendoza', gitToolName: 'Default')]) {
-                    sh "git push https://github.com/SGutierrez-11/TODO-APP main"
+               
+               helm install ${service} ./charts/${service} -namespace todo-app
+               
                 }
             }
         }
