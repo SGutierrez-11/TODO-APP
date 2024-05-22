@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage("Cleanup Workspace") {
             steps {
                 cleanWs()
@@ -17,17 +18,15 @@ pipeline {
     
 
     
-        stage("Update the Deployment Tags (using Helm Template)") {
+        stage("Update the Deployment Tags") {
             steps {
-           
-               sh """
+                sh """
                     cat ./charts/${service}/values.yaml
                     sed -i 's/^tag: .*/tag: ${tag}/' ./charts/${service}/values.yaml 
                     cat ./charts/${service}/values.yaml
                 """
-
-              }
             }
+        }
 
         stage('Install Helm') {
             steps {
@@ -51,12 +50,9 @@ pipeline {
 
         stage("Update deployment in cluster") {
             steps {
-              sh """
-                helm install ${service} \\
-                  --set image.tag=${tag} \\  # Provide the tag value here
-                  ./charts/${service}
-              """
+            helm install ${service} ./charts/${service}
             }
         }
     }
+
 }
