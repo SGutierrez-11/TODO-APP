@@ -27,5 +27,5 @@ jobs:
         docker push sgutierrez11/auth-api:${{ github.run_number }}
     - name: Activate cd
       run: |
-        curl -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'tag=${{ github.run_number }}' --data 'service=auth-api' ${{ secrets.JENKINS_IP }}/generic-webhook-trigger/invoke 
+        curl -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'tag=${{ github.run_number }}' --data 'service=auth-api' ${{ secrets.JENKINS_IP }}/generic-webhook-triggerinvoke?token=todo 
 
