@@ -19,8 +19,8 @@ spec:
     }
 
     environment {
-        service = "your-service-name" // Define the service variable
-        tag = "your-tag" // Define the tag variable
+        service = ${service} // Define the service variable
+        tag = ${tag} // Define the tag variable
     }
 
     stages {
