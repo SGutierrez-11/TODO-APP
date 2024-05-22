@@ -43,6 +43,7 @@ spec:
                     def service = 'your-service-name' // Update with your service name
                     def tag = 'your-tag' // Update with your tag
                     sh """
+                        ls
                         cat ./charts/${service}/values.yaml
                         sed -i 's/^tag: .*/tag: ${tag}/' ./charts/${service}/values.yaml 
                         cat ./charts/${service}/values.yaml
