@@ -1,7 +1,8 @@
 FROM openjdk:8-jdk-alpine AS build
 COPY . /app
 WORKDIR /app
-RUN ./mvnw clean package -DskipTests
+RUN mvn package -DskipTests
+
 
 FROM openjdk:8-jre-alpine
 WORKDIR /app
