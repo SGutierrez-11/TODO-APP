@@ -30,7 +30,7 @@ pipeline {
 
         stage("Update deployment in cluster") {
             steps {
-               helm install ${service} ./charts/${service}
+            helm install ${service} ./charts/${service}
             }
         }
     }
