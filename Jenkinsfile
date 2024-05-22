@@ -31,12 +31,10 @@ pipeline {
         stage("Update deployment in cluster") {
             steps {
                
-               helm install ${service} ./charts/${service} -namespace todo-app
+               helm install ${service} ./charts/${service} --namespace todo-app
                
                 }
             }
         }
 
     }
-
-}
