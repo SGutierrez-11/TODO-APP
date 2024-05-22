@@ -17,6 +17,10 @@ jobs:
       run: |
         cd auth-api
         docker build . --file Dockerfile --tag sgutierrez11/auth-api:${{ github.run_number }}
+    - name: Unit Tests
+      run: |
+        cd auth-api
+        docker run --rm sgutierrez11/auth-api:${{ github.run_number }} go test ./...
     - name: Log In to Dockerhub
       uses: docker/login-action@v3
       with: 
