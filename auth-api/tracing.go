@@ -36,7 +36,7 @@ func initTracing(zipkinURL string) (func(http.Handler) http.Handler, *TracedClie
 	serverMiddleware := zipkinhttp.NewServerMiddleware(
 		tracer, zipkinhttp.TagResponseSize(true),
 	)
-
+	//Testing
 	// create global zipkin traced http client
 	client, err := zipkinhttp.NewClient(tracer, zipkinhttp.ClientTrace(true))
 	if err != nil {
