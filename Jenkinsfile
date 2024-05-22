@@ -38,7 +38,7 @@ pipeline {
 
               }
             }
-        }
+        
 
         stage("Update deployment in cluster") {
             steps {
@@ -50,4 +50,4 @@ pipeline {
             }
         }
     }
-
+}
