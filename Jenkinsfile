@@ -2,16 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Install Helm') {
-          steps {
-            container('helm:3.8.2-alpine') { // Replace with desired Helm version
-              script {
-                sh 'helm version' // Verify Helm installation
-              }
-            }
-          }
-        }
-
         stage("Cleanup Workspace") {
             steps {
                 cleanWs()
@@ -38,7 +28,26 @@ pipeline {
 
               }
             }
-        
+
+        stage('Install Helm') {
+            steps {
+                script {
+                    // Verificar si Helm está instalado
+                    def helmInstalled = sh(script: "which helm || true", returnStdout: true).trim()
+                    if (helmInstalled == '') {
+                        // Descargar e instalar Helm
+                        echo 'Installing Helm...'
+                        sh '''
+                            curl -fsSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+                        '''
+                    } else {
+                        echo 'Helm is already installed'
+                    }
+                    // Verificar la versión de Helm para asegurarse de que está instalado correctamente
+                    sh 'helm version'
+                }
+            }
+        }
 
         stage("Update deployment in cluster") {
             steps {
