@@ -93,5 +93,4 @@ public class UsersApiApplicationTests {
             .andExpect(jsonPath("$.role", is("ADMIN")));
     }
 
-    // Más pruebas aquí...
 }
