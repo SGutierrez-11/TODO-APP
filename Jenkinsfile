@@ -30,7 +30,12 @@ pipeline {
         stage("Update the Deployment Tags (using Helm Template)") {
             steps {
               script {
-                // No shell script needed, tag will be provided during deployment
+               sh """
+                    cat ./charts/${service}/values.yaml
+                    sed -i 's/^tag: .*/tag: ${tag}/' ./charts/${service}/values.yaml 
+                    cat ./charts/${service}/values.yaml
+                """
+
               }
             }
         }
