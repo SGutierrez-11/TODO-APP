@@ -17,12 +17,7 @@ spec:
 '''
         }
     }
-
-    environment {
-        service = ${service} // Define the service variable
-        tag = ${tag} // Define the tag variable
-    }
-
+    
     stages {
 
         stage("Cleanup Workspace") {
