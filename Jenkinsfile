@@ -2,6 +2,15 @@ pipeline {
     agent any
 
     stages {
+        stage('Install Helm') {
+          steps {
+            container('helm:3.8.2-alpine') { // Replace with desired Helm version
+              script {
+                sh 'helm version' // Verify Helm installation
+              }
+            }
+          }
+        }
 
         stage("Cleanup Workspace") {
             steps {
@@ -18,19 +27,21 @@ pipeline {
     
 
     
-        stage("Update the Deployment Tags") {
+        stage("Update the Deployment Tags (using Helm Template)") {
             steps {
-                sh """
-                    cat ./charts/${service}/values.yaml
-                    sed -i 's/^tag: .*/tag: ${tag}/' ./charts/${service}/values.yaml 
-                    cat ./charts/${service}/values.yaml
-                """
+              script {
+                // No shell script needed, tag will be provided during deployment
+              }
             }
         }
 
         stage("Update deployment in cluster") {
             steps {
-            helm install ${service} ./charts/${service}
+              sh """
+                helm install ${service} \\
+                  --set image.tag=${tag} \\  # Provide the tag value here
+                  ./charts/${service}
+              """
             }
         }
     }
