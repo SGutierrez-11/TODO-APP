@@ -27,4 +27,4 @@ jobs:
         docker push sgutierrez11/log-message-processor:${{ github.run_number }}
     - name: Activate cd
       run: |
-        curl -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'tag=${{ github.run_number }}' --data 'service=log-message-processor' ${{ secrets.JENKINS_IP }}/generic-webhook-triggerinvoke?token=todo 
+        curl -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' ${{ secrets.JENKINS_IP }}/generic-webhook-triggerinvoke?token=todo&service=log-message-processori&tag=${{ github.run_number }} 
