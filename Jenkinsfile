@@ -40,8 +40,6 @@ spec:
         stage("Update the Deployment Tags") {
             steps {
                 script {
-                    def service = 'your-service-name' // Update with your service name
-                    def tag = 'your-tag' // Update with your tag
                     sh """
                         ls
                         cat ./charts/${service}/values.yaml
