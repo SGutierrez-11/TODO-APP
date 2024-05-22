@@ -29,7 +29,7 @@ pipeline {
     
         stage("Update the Deployment Tags (using Helm Template)") {
             steps {
-              script {
+           
                sh """
                     cat ./charts/${service}/values.yaml
                     sed -i 's/^tag: .*/tag: ${tag}/' ./charts/${service}/values.yaml 
@@ -51,4 +51,3 @@ pipeline {
         }
     }
 
-}
