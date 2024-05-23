@@ -15,6 +15,7 @@ spec:
       - cat
       tty: true
 '''
+            inheritFrom 'k8s-config'
         }
     }
     
