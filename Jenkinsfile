@@ -48,7 +48,7 @@ spec:
         stage("Update deployment in cluster") {
             steps {
                 container('helm') {
-                    sh "helm install ${service} ./charts/${service}"
+                    sh "helm upgrade --install ${service} ./charts/${service}"
                 }
             }
         }
