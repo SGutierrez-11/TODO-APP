@@ -45,26 +45,6 @@ spec:
             }
         }
 
-        stage('Install Helm') {
-            steps {
-                script {
-                    // Verify if Helm is installed
-                    def helmInstalled = sh(script: "which helm || true", returnStdout: true).trim()
-                    if (helmInstalled == '') {
-                        // Download and install Helm
-                        echo 'Installing Helm...'
-                        sh '''
-                            curl -fsSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-                        '''
-                    } else {
-                        echo 'Helm is already installed'
-                    }
-                    // Verify Helm version to ensure it is installed correctly
-                    sh 'helm version'
-                }
-            }
-        }
-
         stage("Update deployment in cluster") {
             steps {
                 container('helm') {
